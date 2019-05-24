@@ -12,7 +12,7 @@ def capture():
     print("image taken")
     subprocess.run(["gphoto2", "--capture-image-and-download"])
 
-GPIO.add_event_callback(BUTTON_PORT, capture)
+GPIO.add_event_detect(BUTTON_PORT, GPIO.FALLING, callback=capture, bouncetime=2000)
 
 while True:
     time.sleep(1)
