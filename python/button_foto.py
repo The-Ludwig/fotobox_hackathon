@@ -4,7 +4,7 @@ import subprocess
 
 BUTTON_PORT = 3
 
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(BUTTON_PORT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(BUTTON_PORT, GPIO.RISING)
 
