@@ -16,8 +16,9 @@ GPIO.setup(pin,GPIO.OUT)
 #     else:
 #         print("Invalid input, please try up/down or no to exit.")
 
+a = input("Please enter a brightness level in floating-point format between 0.0 and 1.0: ")
 while True:
-#    time.sleep(0.1)
+    time.sleep((1-a)/440)
     GPIO.output(pin,1)
-#    time.sleep(0.1)
+    time.sleep(a/440)
     GPIO.output(pin,0)
