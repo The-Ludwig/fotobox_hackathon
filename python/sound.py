@@ -19,7 +19,11 @@ GPIO.setup(pin,GPIO.OUT)
 while True:
     a = input("Please enter a brightness level in floating-point format between 0.0 and 1.0: ")
     while True:
-        time.sleep((1-a)/440)
-        GPIO.output(pin,1)
-        time.sleep(a/440)
-        GPIO.output(pin,0)
+        try:
+            time.sleep((1-a)/440)
+            GPIO.output(pin,1)
+            time.sleep(a/440)
+            GPIO.output(pin,0)
+        except KeyboardInterrupt:
+            break
+            
