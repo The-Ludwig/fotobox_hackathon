@@ -15,7 +15,7 @@ def rename_img():
     return output
 
 
-def capture(channel):
+def trigger(channel=0):
     del_img()
     subprocess.call(["gphoto2", "--capture-image-and-download"])
     filename = rename_img()
@@ -26,10 +26,6 @@ def capture(channel):
 def del_img():
     if os.path.isfile(os.getcwd()+"/"+IMG_NAME):
         os.remove(os.getcwd()+"/"+IMG_NAME)
-
-
-def trigger():
-    return capture(0)
 
 
 # def trigger():
