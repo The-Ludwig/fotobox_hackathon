@@ -2,9 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -21,7 +19,7 @@
         <div class="carousel-inner">
             {% for pic in pics %}
             <div class="carousel-item active">
-                <img class="d-block w-100" src="{{url_for('static', filename=pic)}}" alt="First slide">
+                <img class="d-block w-100" src="{{url_for('static', filename=pic.loc)}}" alt="First slide">
             </div>
             {% endfor %}
         </div>
