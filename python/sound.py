@@ -17,7 +17,7 @@ GPIO.setup(pin,GPIO.OUT)
 #         print("Invalid input, please try up/down or no to exit.")
 
 while True:
-    time.sleep(0.1)
+#    time.sleep(0.1)
     GPIO.output(pin,1)
-    time.sleep(0.1)
+#    time.sleep(0.1)
     GPIO.output(pin,0)
