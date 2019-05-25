@@ -6,6 +6,9 @@ from flask_socketio import SocketIO
 from datetime import datetime
 import eventlet
 
+from . import camera
+
+
 eventlet.monkey_patch()
 
 #camera = Camera
@@ -27,9 +30,10 @@ def index():
         return render_template("index.html", pics=Image.select())
 
 
-@app.route("/snap")
+@app.route("/snap", methods=["GET"])
 def snap():
     Prev = camera.trigger()
+    print("Test")
     return render_template("snap.html", pic=Prev)
 
 
@@ -40,7 +44,7 @@ def prev():
     return jsonify(pic=prev)
 
 
-@app.route("/snap", methods=["GET"])
+@app.route("/snap", methods=["DELETE"])
 def activateCamera():
     img = camera.trigger()
     Image.create(datetime=datetime.now(), loc=img)
