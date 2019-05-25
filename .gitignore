@@ -1,7 +1,6 @@
 __pycache__/
 *.sqlite
-
 .vscode
-.images
-
 telegramkey.txt
+.images
+*.jpg

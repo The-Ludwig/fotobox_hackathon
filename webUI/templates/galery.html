@@ -12,12 +12,21 @@
     </div>
     {% for pic in pics %}
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{pic.loc}}" alt="Card image cap">
+        <img class="card-img-top" src="{{url_for("static", filename=pic.loc )}}" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">{{pic.datetime}}</h5>
         </div>
     </div>
     {% endfor %}
 </body>
+<ul class="list-group">
+    <li v-for="pic in pics" class="list-group-item">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" v-bind:src="pic" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{pic.datetime}}</h5>
+            </div>
+        </div>
+</ul>
 
 </html>

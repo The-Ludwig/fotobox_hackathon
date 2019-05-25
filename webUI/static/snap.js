@@ -1,36 +1,32 @@
-var socket = io()
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+var socket = io();
+
 
 var app = new Vue({
+    el: '#app',
     delimiters: ['((', '))'],
     data: {
-        pic: [],
-
+        delay: 5,
+        pic: "/static/images/default.jpg"
     },
     methods: {
         trigger: function () {
             $.ajax('/snap', {
-                method: 'DELETE'
-            },
-            )
+                method: 'PUT',
+                success: this.updateImage
+            })
         },
-        trigger_delay: function () {
-            await sleep(5000);
-            this.trigger;
+        updateImage: function (data) {
+            console.log("Updating image to" + data.pic);
+            this.pic = data.pic;
         },
-        update: function () {
-            $.getJSON('/snap', {
-                method: 'POST'
-            },
-                this.prev)
-
-        },
-        prev: function (data) {
-            this.pic = data.pic
+        save: function () {
+            $.ajax("/snap", {
+                method: "POST",
+                data: {
+                    pic: this.pic
+                }
+            })
         }
+
     }
-},
-)
-socket.on('ready', app.updates)
+})

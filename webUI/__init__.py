@@ -1,19 +1,10 @@
 from flask import Flask
 from flask import Flask, render_template, request, jsonify
 from .model import Image
-from flask_socketio import SocketIO
-# from ../camera.py import Camera
-from datetime import datetime
-import eventlet
-
 from . import camera
+from datetime import datetime
 
-
-# eventlet.monkey_patch()
-
-#camera = Camera
 app = Flask(__name__)
-socket = SocketIO(app)
 
 
 @app.before_first_request
@@ -24,6 +15,7 @@ def init():
 @app.route("/")
 def index():
     pics = Image.select()
+    print('Hier', pics, '\n\n')
     if len(pics) > 10:
         return render_template("index.html", pics=Image.select()[-10:-1])
     else:
@@ -32,25 +24,27 @@ def index():
 
 @app.route("/snap", methods=["GET"])
 def snap():
-    Prev = camera.trigger()
-    socket.emit("ready")
-    return render_template("snap.html", pic=Prev)
+    return render_template("snap.html")
 
 
 @app.route("/snap", methods=["POST"])
 def prev():
     prev = camera.trigger()
-    socket.emit("ready")
     return jsonify(pic=prev)
 
 
-@app.route("/snap", methods=["DELETE"])
+@app.route("/snap", methods=["PUT"])
 def activateCamera():
     img = camera.trigger()
     Image.create(datetime=datetime.now(), loc=img)
-    return render_template("snap.html", pic=img)
+    return jsonify(pic=img)
 
 
-@app.route("/galery")
+@app.route("/galery", methods=["GET"])
 def galery():
-    return render_template("galery.html", pics=Image.select())
+    return render_template("galery.html")
+
+
+@app.route("/galery", methods=["PUT"])
+def images():
+    return jsonify(Image.select())
