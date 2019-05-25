@@ -3,6 +3,9 @@
 
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script defer src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script defer src="{{ url_for('static', filename='galery.js') }}"></script>
 </head>
 
 <body>
@@ -10,23 +13,29 @@
         <h1 class="display-4">Galerie</h1>
         <p class="lead">Alle bereits aufgenommenen Fotos.</p>
     </div>
-    {% for pic in pics %}
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{url_for("static", filename=pic.loc )}}" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">{{pic.datetime}}</h5>
-        </div>
-    </div>
-    {% endfor %}
+    <ul>
+        {% for pic in pics %}
+        <li>
+            <div class="card" style="width: 80rem;">
+                <img class="card-img-top" src="{{url_for('static', filename= pic.loc )}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{pic.datetime}}</h5>
+                </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <!-- <div id="app"> -->
+    <!-- <ul class="list-group"> -->
+    <!-- <li v-for="pic in pics" class="list-group-item"> -->
+    <!-- <div class="card" style="width: 18rem;"> -->
+    <!-- <img class="card-img-top" v-bind:src="pic" alt="Card image cap"> -->
+    <!-- <div class="card-body"> -->
+    <!-- <h5 class="card-title">((pic.datetime))</h5> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- </ul> -->
+    <!-- </div> -->
 </body>
-<ul class="list-group">
-    <li v-for="pic in pics" class="list-group-item">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" v-bind:src="pic" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{pic.datetime}}</h5>
-            </div>
-        </div>
-</ul>
+
 
 </html>

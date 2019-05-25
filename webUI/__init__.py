@@ -15,7 +15,6 @@ def init():
 @app.route("/")
 def index():
     pics = Image.select()
-    print('Hier', pics, '\n\n')
     if len(pics) > 10:
         return render_template("index.html", pics=Image.select()[-10:-1])
     else:
@@ -29,20 +28,19 @@ def snap():
 
 @app.route("/snap", methods=["POST"])
 def prev():
-    prev = camera.trigger()
-    return jsonify(pic=prev)
+    pic = request.form.get('pic')
+    Image.create(datetime=datetime.now(), loc=pic)
 
 
 @app.route("/snap", methods=["PUT"])
 def activateCamera():
     img = camera.trigger()
-    Image.create(datetime=datetime.now(), loc=img)
     return jsonify(pic=img)
 
 
 @app.route("/galery", methods=["GET"])
 def galery():
-    return render_template("galery.html")
+    return render_template("galery.html", pics=Image.select())
 
 
 @app.route("/galery", methods=["PUT"])
