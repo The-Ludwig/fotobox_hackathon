@@ -6,10 +6,12 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(pin,GPIO.OUT)
 
 while True:
-    a = input("Do you want to continue? ")
+    a = str(input("Do you want to change brightness? >>"))
     if a in ["N","n","NO","No","no"]:
         break
-    elif a:
+    elif a in ["brighter","Brighter","up","Up","+"]:
         GPIO.output(pin,1)
-    else:
+    elif a in ["darker","Darker","down","Down","-"]:
         GPIO.output(pin,0)
+    else:
+        print("Invalid input, please try up/down or no to exit.")
