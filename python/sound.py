@@ -24,7 +24,7 @@ while True:
         try:
             time.sleep((1-a)/880)
             GPIO.output(pin,1)
-            time.sleep(1+a/440)
+            time.sleep(1+a/880)
             GPIO.output(pin,0)
         except KeyboardInterrupt:
             break
