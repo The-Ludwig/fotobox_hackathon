@@ -6,7 +6,7 @@ import os
 
 BUTTON_PORT = 3
 IMG_NAME = "capt0000.jpg"
-DIR_NAME = "fotobox"
+DIR_NAME = ".images"
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(BUTTON_PORT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
