@@ -12,7 +12,7 @@ var app = new Vue({
     methods: {
         trigger: function () {
             $.ajax('/snap', {
-                method: 'GET'
+                method: 'DELETE'
             },
             )
         },
