@@ -7,6 +7,7 @@ import os
 BUTTON_PORT = 3
 IMG_NAME = "capt0000.jpg"
 DIR_NAME = ".images"
+FNULL = open(os.devnull, 'w')
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(BUTTON_PORT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -22,7 +23,7 @@ def save_img():
     return filename
 
 def capture(channel):
-    subprocess.call(["gphoto2", "--capture-image-and-download"])
+    subprocess.call(["gphoto2", "--capture-image-and-download"], stdout=FNULL, stderr=subprocess.STDOUT)
     filename = save_img()
     print("Image saved as {}".format(filename))
     del_img()
@@ -34,5 +35,9 @@ def del_img():
 
 GPIO.add_event_detect(BUTTON_PORT, GPIO.FALLING, callback=capture, bouncetime=5000)
 
-while True:
-    time.sleep(1)
+try:
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    FNULL.close()
+    GPIO.cleanup()
