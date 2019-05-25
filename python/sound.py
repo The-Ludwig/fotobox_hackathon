@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import math
 
 pin = 40
 GPIO.setmode(GPIO.BOARD)
@@ -17,13 +18,13 @@ GPIO.setup(pin,GPIO.OUT)
 #         print("Invalid input, please try up/down or no to exit.")
 
 while True:
-    a = input("Please enter a brightness level in floating-point format between 0.0 and 1.0: ")
+    x = input("Please enter a brightness level as any floating-point number: ")
+    a = math.tanh(x)
     while True:
         try:
-            time.sleep((1-a)/440)
+            time.sleep((1-a)/880)
             GPIO.output(pin,1)
-            time.sleep(a/440)
+            time.sleep(1+a/440)
             GPIO.output(pin,0)
         except KeyboardInterrupt:
             break
-            
