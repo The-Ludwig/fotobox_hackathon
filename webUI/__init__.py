@@ -1,13 +1,14 @@
 from flask import Flask
-from flask import render_template
-from flask_socketio import SocketIO
-import peewee
+from flask import Flask, render_template, request, jsonify
 from .model import Image
-from time import sleep
-from ../camera.py import Camera
+from flask_socketio import SocketIO
+# from ../camera.py import Camera
 from datetime import datetime
+import eventlet
 
-camera = Camera
+eventlet.monkey_patch()
+
+#camera = Camera
 app = Flask(__name__)
 socket = SocketIO(app)
 
@@ -28,22 +29,24 @@ def index():
 
 @app.route("/snap")
 def snap():
-    return render_template("snap.html", pic="default.jpg")
-
-
-@app.route("snap", methods=["POST"])
-def activateCamera():
     Prev = camera.trigger()
-    return render_template("snap.html", Pic=Prev)
+    return render_template("snap.html", pic=Prev)
 
 
-@app.route("snap", methods=["GET"])
+@app.route("/snap", methods=["POST"])
+def prev():
+    prev = camera.trigger()
+    socket.emit("update")
+    return jsonify(pic=prev)
+
+
+@app.route("/snap", methods=["GET"])
 def activateCamera():
-    Prev = camera.trigger()
-    Image.create(datetime=datetime.now(), loc=Prev)
-    return render_template("snap.html", Pic=Prev)
+    img = camera.trigger()
+    Image.create(datetime=datetime.now(), loc=img)
+    return render_template("snap.html", pic=img)
 
 
-@app.route("galery")
+@app.route("/galery")
 def galery():
     return render_template("galery.html", pics=Image.select())
