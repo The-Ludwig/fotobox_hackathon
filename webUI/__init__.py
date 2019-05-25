@@ -9,7 +9,7 @@ import eventlet
 from . import camera
 
 
-eventlet.monkey_patch()
+# eventlet.monkey_patch()
 
 #camera = Camera
 app = Flask(__name__)
@@ -33,14 +33,14 @@ def index():
 @app.route("/snap", methods=["GET"])
 def snap():
     Prev = camera.trigger()
-    print("Test")
+    socket.emit("ready")
     return render_template("snap.html", pic=Prev)
 
 
 @app.route("/snap", methods=["POST"])
 def prev():
     prev = camera.trigger()
-    socket.emit("update")
+    socket.emit("ready")
     return jsonify(pic=prev)
 
 
