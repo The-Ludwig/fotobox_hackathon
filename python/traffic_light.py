@@ -8,10 +8,10 @@ GPIO.setmode(GPIO.BOARD)
 for colour in pins:
     GPIO.setup(pins[colour],GPIO.OUT)
 
-GPIO.output(36,1)
-GPIO.output(38,1)
-GPIO.output(40,1)
-time.sleep(100)
+# GPIO.output(36,1)
+# GPIO.output(38,1)
+# GPIO.output(40,1)
+# time.sleep(100)
 
 while True:
     time.sleep(20)
