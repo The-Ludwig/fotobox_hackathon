@@ -42,10 +42,10 @@ def handle(take_picture_callback, bot, msg):
             bot.sendMessage(chat_id, 'Your photo is being processed, please wait for about a minute!', reply_markup=KEYBOARD)
             try:
                 filepath = take_picture_callback()
-                print("sending {}".format(filepath))
-                with open(filepath, "rb") as file:
-                    bot.sendMessage(chat_id, 'Ascii-Art:\n'+getAsciiArt(filepath))
-                    #bot.sendPhoto(chat_id, file) 
+                # print("sending {}".format(filepath))
+                # with open(filepath, "rb") as file:
+                #     bot.sendMessage(chat_id, 'Ascii-Art:\n'+getAsciiArt(filepath))
+                #     #bot.sendPhoto(chat_id, file) 
                 print("Foto was send!")
             except FileNotFoundError:
                 bot.sendMessage(chat_id, 'Camera not connected', reply_markup=KEYBOARD)

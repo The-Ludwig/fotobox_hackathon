@@ -7,11 +7,9 @@ DIR_NAME = "images"
 
 
 def rename_img():
-    output = os.path.join(
-        'static', DIR_NAME, "{:%Y-%m-%dT%H:%M:%S}.jpg".format(datetime.now()))
-    os.makedirs(DIR_NAME, exist_ok=True)
-    os.rename(IMG_NAME, output)
-    print(output)
+    output = os.path.join("static", DIR_NAME, "{:%Y-%m-%dT%H:%M:%S}.jpg".format(datetime.now()))
+    #os.makedirs(DIR_NAME, exist_ok=True)
+    os.rename(IMG_NAME,output)
     return output
 
 

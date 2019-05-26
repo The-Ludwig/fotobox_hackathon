@@ -2,15 +2,25 @@ from flask import Flask
 from flask import Flask, render_template, request, jsonify
 from .model import Image
 from . import camera
+from . import photobox_bot
 from datetime import datetime
 
 app = Flask(__name__)
 
+with open("telegramkey.txt", "r") as file:
+    token = file.read()
 
+
+def botTrigger():
+    pic = camera.trigger()
+    Image.create(datetime=datetime.now(), loc=pic)
+    return pic
+
+photobox_bot.startBot(botTrigger, token)
 @app.before_first_request
 def init():
     Image.create_table(safe=True)
-
+    
 
 @app.route("/")
 def index():
